@@ -41,7 +41,7 @@
         <li><a href="#r-onboarding">01 — Onboarding &amp; Compliance</a></li>
         <li><a href="#r-composite">02 — Composite View (SQL)</a></li>
         <li><a href="#r-dashboard">03 — Dashboard Data Pull</a></li>
-        <li><a href="#r-xmapping">04 — Data Lake Migration</a></li>
+        <li><a href="#r-xmapping">04 — XMapping</a></li>
         <li><a href="#r-ad">05 — AD Access Matrix</a></li>
         <li><a href="#r-overall">Overall Growth</a></li>
       </ul>
@@ -73,24 +73,28 @@
       </article>
 
       <article class="item" id="r-composite">
-        <div class="item__head"><h2>02 — Composite View Across Multiple Products</h2></div>
+        <div class="item__head"><h2>02 — Composite Views Across 12 Products</h2></div>
         <div class="reflect-grid">
           <div class="reflect-card">
             <span class="reflect-card__label">What I learned</span>
-            <p>How to design a SQL view that pulls consistent, standardized output from several
-            differently-structured source tables at once — handling date parsing, business-rule
-            mapping via CASE logic, and multiple join conditions in one query.</p>
+            <p>I'd learned SQL joins in school, but here I learned what makes a join actually
+            <em>safe</em> — which columns can be joined on without silently duplicating rows, how to
+            sift through tables with hundreds of columns to find the right join keys, and how to
+            troubleshoot when a join quietly breaks the row count.</p>
           </div>
           <div class="reflect-card">
             <span class="reflect-card__label">Applying KSA</span>
-            <p>Applied SQL fundamentals I'd studied — joins, CASE statements, date functions — to a
-            real, messy dataset for the first time, where the "right" answer isn't in a textbook but
-            has to match how the business actually defines each product.</p>
+            <p>School gave me the syntax — how to write a JOIN, a CASE statement, a date function.
+            It never taught me how to go looking for the right join condition across unfamiliar
+            tables, or how to document that reasoning so someone else could follow it. That part I
+            had to build from scratch, across all 12 product views.</p>
           </div>
           <div class="reflect-card">
             <span class="reflect-card__label">Growth</span>
-            <p>Built my confidence in reading and reasoning about production-scale queries, and taught
-            me to think about a query as documentation of business logic, not just as code.</p>
+            <p>This is where I stopped thinking of SQL as "a subject I passed" and started thinking of
+            it as a tool I still had a lot to learn about. Writing one view that a whole department
+            could rely on, instead of a query for a single exercise, changed how carefully I check my
+            own joins now.</p>
           </div>
         </div>
       </article>
@@ -119,26 +123,29 @@
       </article>
 
       <article class="item" id="r-xmapping">
-        <div class="item__head"><h2>04 — Power BI → Data Lake Migration (XMapping)</h2></div>
+        <div class="item__head"><h2>04 — XMapping: Source CSV → Data Lake → Power BI</h2></div>
         <div class="reflect-grid">
           <div class="reflect-card">
             <span class="reflect-card__label">What I learned</span>
-            <p>How an existing dashboard's data source gets re-pointed from a legacy system to an
-            Enterprise data lake on Hadoop — including creating new backing tables, rewriting Power
-            Query steps, and cleaning source data so the numbers still tie out after the switch.</p>
+            <p>That "clean the data" isn't one step, it's a whole set of decisions: how to get a
+            source CSV to match a data lake table's exact format, and — before I could even create the
+            table — whether it refreshes monthly, whether new data gets appended or the table gets
+            fully dumped and reloaded each time. Those answers decide how the table should be
+            partitioned so it can actually be queried efficiently later.</p>
           </div>
           <div class="reflect-card">
             <span class="reflect-card__label">Applying KSA</span>
-            <p>Combined data engineering (SQL table creation, source data cleaning) with reporting
-            tooling (Power Query, and a first introduction to how the resulting visuals get built),
-            plus documentation skills — writing steps clear enough for another user to run the weekly
-            refresh without me.</p>
+            <p>Combined data engineering (table design, source data cleaning) with reporting tooling
+            (rewriting Power Query steps) and documentation — writing the cleaning steps and the
+            do's and don'ts for uploading into WFTS clearly enough that someone else could follow them,
+            and that the format stays standardized no matter who uploads next.</p>
           </div>
           <div class="reflect-card">
             <span class="reflect-card__label">Growth</span>
-            <p>This is where I started to see data governance and data visualization as connected: a
-            dashboard's trustworthiness depends on the governance decisions made upstream, long before
-            anyone opens the report.</p>
+            <p>I used to think of "the dashboard" as the finished product. Now I see it as the last
+            step of a much longer chain — and that most of the decisions that make a dashboard
+            trustworthy (refresh logic, partitioning, upload standards) happen long before anyone
+            opens the report.</p>
           </div>
         </div>
       </article>
@@ -148,18 +155,22 @@
         <div class="reflect-grid">
           <div class="reflect-card">
             <span class="reflect-card__label">What I learned</span>
-            <p>How access to systems and data is actually controlled behind the scenes — mapping
-            Active Directory groups to what they should and shouldn't be able to see or do.</p>
+            <p>That a pipeline isn't finished once the data flows correctly — it also needs to be
+            locked down correctly. Operations is made up of many different departments, and one
+            department's data shouldn't be visible to another, so the XMapping pipeline needed its own
+            Active Directory access matrix mapping which groups can reach which stage.</p>
           </div>
           <div class="reflect-card">
             <span class="reflect-card__label">Applying KSA</span>
             <p>Direct exposure to data governance as a discipline, working alongside my supervisor
-            rather than independently — an area I hadn't studied formally before this internship.</p>
+            rather than independently — this is genuinely new ground for me, nothing I'd covered in
+            school before this internship.</p>
           </div>
           <div class="reflect-card">
             <span class="reflect-card__label">Growth</span>
-            <p>Reframed how I think about "who can see the data" as its own engineering problem,
-            separate from but just as important as building the pipeline or the dashboard itself.</p>
+            <p>Reframed how I think about "who can see the data" as its own engineering problem, tied
+            directly to the pipeline I was building — not a separate, later concern, but something
+            that has to be designed alongside it.</p>
           </div>
         </div>
       </article>
@@ -167,15 +178,17 @@
       <article class="item" id="r-overall">
         <div class="item__head"><h2>Overall Growth</h2></div>
         <p style="max-width:720px;">
-          Coming into this internship, my exposure to SQL, data governance, and data visualization was
-          mostly academic. Across these few weeks I've moved from learning how OCBC's Group Operations
-          &amp; Technology division is structured, to writing SQL against real production-shaped data,
-          to working on an active migration that touches data engineering, reporting, and governance at
-          once. The through-line for me has been realizing how much of "good data work" happens before
-          a chart is ever drawn — in the compliance training, the table design, and the access control
-          decisions that make the eventual dashboard trustworthy. That's shifted how I think about my
-          direction in IT: I'm more drawn to the data engineering and governance side of the stack than
-          I expected to be going in.
+          Coming into this internship, I thought I already knew SQL — school had covered joins, CASE
+          statements, the basics. What this internship showed me is that the basics are just the
+          starting point. School never taught me how to sift through tables with hundreds of columns
+          to find a safe join key, how to document that reasoning for someone else to follow, or how
+          to think through refresh cadence and partitioning before a table even exists. Data
+          governance — deciding who in Operations should be able to see what — was something I hadn't
+          touched in school at all. The through-line for me has been realizing how much of "good data
+          work" happens before a chart is ever drawn: in the join logic, the table design, and the
+          access control decisions that make the eventual dashboard trustworthy. That's shifted how I
+          think about my direction in IT — I'm more drawn to the data engineering and governance side
+          of the stack than I expected to be going in.
         </p>
       </article>
 
