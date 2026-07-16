@@ -26,6 +26,10 @@
 *{ box-sizing:border-box; }
 
 html{ scroll-behavior:smooth; }
+html, body{
+  max-width:100%;
+  overflow-x:hidden;
+}
 
 body{
   margin:0;
@@ -36,6 +40,8 @@ body{
   line-height:1.65;
   -webkit-font-smoothing:antialiased;
 }
+
+img{ max-width:100%; height:auto; }
 
 h1,h2,h3,h4{
   font-family:var(--font-display);
@@ -184,7 +190,7 @@ a:hover{ text-decoration:underline; }
 }
 .hero__grid{
   display:grid;
-  grid-template-columns:auto 1fr;
+  grid-template-columns:auto minmax(0,1fr);
   gap:40px;
   align-items:center;
   margin-top:36px;
@@ -279,7 +285,7 @@ section.block:last-of-type{ border-bottom:none; }
 
 .two-col{
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
   gap:36px;
 }
 @media (max-width:800px){
@@ -315,7 +321,7 @@ section.block:last-of-type{ border-bottom:none; }
 }
 .layout{
   display:grid;
-  grid-template-columns:220px 1fr;
+  grid-template-columns:220px minmax(0,1fr);
   gap:48px;
   padding:48px 0 80px;
   align-items:start;
@@ -379,6 +385,8 @@ section.block:last-of-type{ border-bottom:none; }
 
 pre{
   margin:0;
+  max-width:100%;
+  box-sizing:border-box;
   background:#0F1B2E;
   color:#E4E9F0;
   border-radius:var(--radius);
@@ -398,7 +406,7 @@ pre code{ font-family:inherit; }
 
 .cert-grid{
   display:grid;
-  grid-template-columns:repeat(3, 1fr);
+  grid-template-columns:repeat(3, minmax(0,1fr));
   gap:16px;
   margin-top:8px;
 }
@@ -427,7 +435,7 @@ pre code{ font-family:inherit; }
 /* ---------------- Reflection cards ---------------- */
 .reflect-grid{
   display:grid;
-  grid-template-columns:repeat(3, 1fr);
+  grid-template-columns:repeat(3, minmax(0,1fr));
   gap:18px;
 }
 @media (max-width:800px){

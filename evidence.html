@@ -222,11 +222,22 @@ LEFT JOIN CTE_2
         </div>
         <p class="item__meta">Ongoing track · SQL, Power Query (M), Python (reference), documentation</p>
         <p>
-          The bank has several Power BI dashboards still running on a legacy data source, and each one
-          needs to be re-pointed onto the Enterprise data lake. Each dashboard is owned by a different
-          department, with its own WFTS folder — so this isn't one big shared pipeline, it's many
-          separate ones, each following the same general shape but built and owned independently.
-          Departments can only see their own pipeline and their own dashboard, not each other's.
+          Previously, keeping one of these dashboards up to date was a manual process: someone had to
+          place the source file into a Teams folder, Power BI's source was pointed at that Teams file,
+          and someone had to manually hit refresh every time. XMapping automates the refresh step — by
+          re-pointing Power BI at the Enterprise data lake instead of the Teams file, the dashboard can
+          refresh on a schedule with no one needing to click anything. Each dashboard is owned by a
+          different department, with its own WFTS folder feeding its own table — so this isn't one big
+          shared pipeline, it's many separate ones, each following the same general shape but built and
+          owned independently. Departments can only see their own pipeline and their own dashboard, not
+          each other's.
+        </p>
+        <p>
+          The refresh itself is now automated; what's still manual — and what we're actively working on
+          automating next — is the <strong>preprocessing</strong>: cleaning and standardizing the source
+          data before it's fit for the data lake table. The goal is to move that cleaning step into Power
+          BI itself, so it happens automatically as part of the refresh rather than as a separate manual
+          task (see Power Query snippet 1, below).
         </p>
         <div class="pipeline" style="margin:20px 0 24px;">
           <div class="pipeline__row">
@@ -244,10 +255,13 @@ LEFT JOIN CTE_2
             </div>
             <div class="pipeline__node">
               <span class="pipeline__label">04</span>
-              <span class="pipeline__title">Scheduled Power BI Refresh</span>
+              <span class="pipeline__title">Automated Power BI Refresh</span>
             </div>
           </div>
         </div>
+        <p class="code-caption" style="margin:-8px 0 20px;">
+          Replaces the old flow: source file → Teams folder → Power BI (manual refresh).
+        </p>
         <p class="muted" style="font-size:.9rem;">
           One instance of this pattern, per dashboard — I've completed one so far; several more are
           still queued and each will need its own version of this, since no two dashboards clean,
@@ -296,6 +310,11 @@ LEFT JOIN CTE_2
           share — are sanitized.
         </div>
         <h3 style="margin-top:28px;">Power Query — Type Casting &amp; Data Cleaning</h3>
+        <p>
+          This is part of the effort to move preprocessing into Power BI itself — standardizing column
+          types, parsing dates across multiple possible formats, and clearing out error values, so this
+          cleaning happens automatically on refresh instead of as a manual step beforehand.
+        </p>
         <pre><code class="language-javascript">let
  STEP_1 = Odbc.Query(
  PARAMETER_1,
