@@ -220,10 +220,13 @@ LEFT JOIN CTE_2
           <h2>04 — XMapping: Source CSV → Data Lake → Power BI</h2>
           <span class="status status--live">status: live (sanitized)</span>
         </div>
-        <p class="item__meta">Ongoing track · SQL, Power Query (M), documentation</p>
+        <p class="item__meta">Ongoing track · SQL, Power Query (M), Python (reference), documentation</p>
         <p>
-          I'm on a track re-pointing an existing Power BI dashboard's data source away from its legacy
-          source and onto the bank's Enterprise data lake, following this pipeline:
+          The bank has several Power BI dashboards still running on a legacy data source, and each one
+          needs to be re-pointed onto the Enterprise data lake. Each dashboard is owned by a different
+          department, with its own WFTS folder — so this isn't one big shared pipeline, it's many
+          separate ones, each following the same general shape but built and owned independently.
+          Departments can only see their own pipeline and their own dashboard, not each other's.
         </p>
         <div class="pipeline" style="margin:20px 0 24px;">
           <div class="pipeline__row">
@@ -233,7 +236,7 @@ LEFT JOIN CTE_2
             </div>
             <div class="pipeline__node">
               <span class="pipeline__label">02</span>
-              <span class="pipeline__title">WFTS Folder</span>
+              <span class="pipeline__title">Department's WFTS Folder</span>
             </div>
             <div class="pipeline__node">
               <span class="pipeline__label">03</span>
@@ -245,8 +248,25 @@ LEFT JOIN CTE_2
             </div>
           </div>
         </div>
+        <p class="muted" style="font-size:.9rem;">
+          One instance of this pattern, per dashboard — I've completed one so far; several more are
+          still queued and each will need its own version of this, since no two dashboards clean,
+          filter, or refresh their data the same way.
+        </p>
         <p>My part of this covers:</p>
         <ul>
+          <li>
+            <strong>Understanding the dashboard's existing update logic before touching anything</strong>
+            — the department sent over the Python scripts they used to filter and prepare the data
+            beforehand. I had to read through their filtering conditions (the specific rows they
+            excluded from ever reaching the dashboard, and why) before I could touch the pipeline at
+            all — this wasn't just swapping a data source.
+          </li>
+          <li>
+            <strong>Replicating that filtering logic in Power Query</strong>, so the new pipeline
+            behaves identically to the old one from the department's point of view, and automating it
+            so it runs on schedule without needing the manual Python step each time.
+          </li>
           <li>
             <strong>Cleaning the source CSV</strong> to match the exact format the data lake table
             expects, then documenting the cleaning steps and the do's and don'ts a user must follow
@@ -254,24 +274,26 @@ LEFT JOIN CTE_2
             regardless of who's uploading.
           </li>
           <li>
-            <strong>Designing the data lake tables</strong> — before creating each one I had to work
-            through questions like: is this data refreshed monthly? Should new data be appended, or
-            does the table get fully dumped and replaced each time? Those answers shape how the table
-            is partitioned, so it can be queried efficiently and cleanly later on.
-          </li>
-          <li>
-            <strong>Rewriting the dashboard's Power Query steps</strong> to point at the new data lake
-            source instead of the legacy one.
+            <strong>Designing the data lake table</strong> — before creating it I had to work through
+            questions like: is this data refreshed monthly? Should new data be appended, or does the
+            table get fully dumped and replaced each time? Those answers shape how the table is
+            partitioned, so it can be queried efficiently and cleanly later on.
           </li>
           <li>
             <strong>Writing refresh documentation</strong> so other users can run the dashboard's
             weekly data refresh themselves, without needing me involved each time.
           </li>
         </ul>
+        <p class="muted" style="font-size:.9rem;">
+          My work on this track has been on the SQL and Power Query side so far; the data
+          visualization side of these dashboards is something I expect to pick up more of going
+          forward.
+        </p>
         <div class="confidential-note">
-          <strong>Note:</strong> the SQL scripts used to create the data lake tables, and the cleaning
-          / upload documentation itself, are sensitive and cannot be shown. The two Power Query
-          transformations below — the parts of this work I'm able to share — are sanitized.
+          <strong>Note:</strong> the SQL scripts used to create the data lake table, the original
+          Python filtering scripts, and the cleaning / upload documentation are sensitive and cannot
+          be shown. The two Power Query transformations below — the parts of this work I'm able to
+          share — are sanitized.
         </div>
         <h3 style="margin-top:28px;">Power Query — Type Casting &amp; Data Cleaning</h3>
         <pre><code class="language-javascript">let
@@ -324,7 +346,18 @@ in
  STEP_10</code></pre>
         <p class="code-caption">Abbreviated — full step chain runs 10 sequential transforms. Values, table and column names masked for confidentiality.</p>
 
-        <h3 style="margin-top:28px;">Power Query — Business Rule Tagging for Weekly Refresh</h3>
+        <h3 style="margin-top:28px;">Power Query — Replicating the Department's Python Filtering Logic</h3>
+        <p>
+          This part started with the department's own Python scripts, not mine. They filter out rows
+          they don't want reaching the dashboard, based on a set of business rules — so before writing
+          anything, I read through their Python to understand exactly which rows got excluded and why.
+          I'd learned Python basics in school, which made reading their logic manageable; the harder
+          part was translating conditional filtering logic from Python into Power Query's M language
+          faithfully enough that the output matched, then automating it so it runs on the dashboard's
+          schedule without manual intervention. That's also why this step chain runs over 20 steps —
+          each rule from their Python script became its own traceable transform here, rather than one
+          black-box condition.
+        </p>
         <pre><code class="language-javascript">let
  STEP_1 = Odbc.Query(PARAMETER_1, "select * from MASKED_DATABASE.""MASKED_SCHEMA"".MASKED_TABLE ..."),
  STEP_2 = Table.PromoteHeaders(STEP_1, [PromoteAllScalars=true]),
@@ -370,11 +403,11 @@ in
         <p class="item__meta">Data Governance · tied to the XMapping project (#04)</p>
         <p>
           Worked with my supervisor to build an AD group access matrix specifically governing access
-          to the XMapping pipeline above — source CSV, WFTS folder, data lake tables, and the Power BI
-          refresh. Operations is made up of many different departments, and one department's data
-          shouldn't be visible to another. The matrix maps which Active Directory groups should have
-          access to which stage of that pipeline, so access stays scoped to the department the data
-          actually belongs to.
+          to one department's XMapping pipeline (#04) — its source CSV, its WFTS folder, its data lake
+          table, and its Power BI refresh. Since each department owns its own pipeline and its own
+          dashboard, access needs to be scoped per department on both fronts: a department can't see
+          another department's underlying pipeline, and can't view another department's dashboard
+          either. The matrix maps which Active Directory groups get access to which stage.
         </p>
         <p>
           This was genuinely new ground for me — access control and data governance at this level

@@ -127,25 +127,25 @@
         <div class="reflect-grid">
           <div class="reflect-card">
             <span class="reflect-card__label">What I learned</span>
-            <p>That "clean the data" isn't one step, it's a whole set of decisions: how to get a
-            source CSV to match a data lake table's exact format, and — before I could even create the
-            table — whether it refreshes monthly, whether new data gets appended or the table gets
-            fully dumped and reloaded each time. Those answers decide how the table should be
-            partitioned so it can actually be queried efficiently later.</p>
+            <p>That re-pointing a data source is never just re-pointing it. Before I could touch the
+            pipeline, I had to read through the department's existing Python scripts to understand
+            exactly which rows they filtered out of the dashboard and why, then replicate that logic
+            faithfully in Power Query and automate it — on top of the cleaning, table design, and
+            documentation work underneath.</p>
           </div>
           <div class="reflect-card">
             <span class="reflect-card__label">Applying KSA</span>
-            <p>Combined data engineering (table design, source data cleaning) with reporting tooling
-            (rewriting Power Query steps) and documentation — writing the cleaning steps and the
-            do's and don'ts for uploading into WFTS clearly enough that someone else could follow them,
-            and that the format stays standardized no matter who uploads next.</p>
+            <p>School's Python basics made reading their scripts manageable, which made the harder
+            part — translating conditional logic across two different languages without changing the
+            result — actually achievable. Combined that with SQL table design and Power Query
+            automation, plus documentation clear enough for someone else to run the refresh.</p>
           </div>
           <div class="reflect-card">
             <span class="reflect-card__label">Growth</span>
-            <p>I used to think of "the dashboard" as the finished product. Now I see it as the last
-            step of a much longer chain — and that most of the decisions that make a dashboard
-            trustworthy (refresh logic, partitioning, upload standards) happen long before anyone
-            opens the report.</p>
+            <p>I've completed one dashboard so far, with several more still queued — and each one will
+            need its own approach, since no two departments clean or filter their data the same way.
+            That's taught me not to expect a single reusable fix, and to budget the "understand the
+            existing logic" step as seriously as the build itself.</p>
           </div>
         </div>
       </article>
@@ -156,9 +156,9 @@
           <div class="reflect-card">
             <span class="reflect-card__label">What I learned</span>
             <p>That a pipeline isn't finished once the data flows correctly — it also needs to be
-            locked down correctly. Operations is made up of many different departments, and one
-            department's data shouldn't be visible to another, so the XMapping pipeline needed its own
-            Active Directory access matrix mapping which groups can reach which stage.</p>
+            locked down correctly. Since each department owns its own pipeline and its own dashboard,
+            the access matrix has to keep both scoped: a department can't see another's underlying data,
+            and can't view another's dashboard either.</p>
           </div>
           <div class="reflect-card">
             <span class="reflect-card__label">Applying KSA</span>
@@ -188,7 +188,9 @@
           work" happens before a chart is ever drawn: in the join logic, the table design, and the
           access control decisions that make the eventual dashboard trustworthy. That's shifted how I
           think about my direction in IT — I'm more drawn to the data engineering and governance side
-          of the stack than I expected to be going in.
+          of the stack than I expected to be going in. My work so far has stayed on the SQL and Power
+          Query side of things; the dashboards I've helped re-route still need their visualization
+          layer built out, which is the direction I expect to grow into next.
         </p>
       </article>
 
