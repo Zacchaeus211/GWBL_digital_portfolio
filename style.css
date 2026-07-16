@@ -73,6 +73,9 @@ a:hover{ text-decoration:underline; }
   padding:0 32px;
   box-sizing:border-box;
 }
+@media (max-width:420px){
+  .container{ padding:0 18px; }
+}
 
 /* ---------------- Status tags ----------------
    Borrowed directly from the vocabulary in Zacchaeus's own
