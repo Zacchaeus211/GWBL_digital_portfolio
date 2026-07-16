@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reflection — Zacchaeus Lee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav">
+    <div class="nav__brand">ZACCHAEUS LEE <span class="muted">/ portfolio</span></div>
+    <button class="nav__toggle" aria-label="Toggle navigation">☰ MENU</button>
+    <ul class="nav__links">
+      <li><a href="index.html">Introduction</a></li>
+      <li><a href="evidence.html">Evidence of Work</a></li>
+      <li><a href="reflection.html" aria-current="page">Reflection</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <section class="page-head container">
+    <span class="hero__eyebrow">03 · Reflection</span>
+    <h1>What it taught me</h1>
+    <p class="muted" style="max-width:640px;">
+      This is a first draft written from my working notes — I'm going through and personalizing each
+      section further before submission.
+    </p>
+  </section>
+
+  <div class="container layout">
+    <nav class="toc">
+      <span class="toc__label">On this page</span>
+      <ul>
+        <li><a href="#r-onboarding">01 — Onboarding &amp; Compliance</a></li>
+        <li><a href="#r-composite">02 — Composite View (SQL)</a></li>
+        <li><a href="#r-dashboard">03 — Dashboard Data Pull</a></li>
+        <li><a href="#r-xmapping">04 — Data Lake Migration</a></li>
+        <li><a href="#r-ad">05 — AD Access Matrix</a></li>
+        <li><a href="#r-overall">Overall Growth</a></li>
+      </ul>
+    </nav>
+
+    <div>
+
+      <article class="item" id="r-onboarding">
+        <div class="item__head"><h2>01 — Onboarding &amp; Compliance Training</h2></div>
+        <div class="reflect-grid">
+          <div class="reflect-card">
+            <span class="reflect-card__label">What I learned</span>
+            <p>How a bank the size of OCBC actually operates day to day — how Group O&amp;T splits work
+            between running the bank and changing it, and why compliance rules like PDPA and insider
+            trading policy exist before any technical work even starts.</p>
+          </div>
+          <div class="reflect-card">
+            <span class="reflect-card__label">Applying KSA</span>
+            <p>Attitude and awareness, more than a hard skill at this stage: understanding the risk and
+            regulatory context I'd be operating in, so I knew where the lines were once I started
+            touching real data.</p>
+          </div>
+          <div class="reflect-card">
+            <span class="reflect-card__label">Growth</span>
+            <p>Gave me the operating context for everything that followed — the confidentiality
+            boundaries I've applied throughout this portfolio come directly from this training.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="item" id="r-composite">
+        <div class="item__head"><h2>02 — Composite View Across Multiple Products</h2></div>
+        <div class="reflect-grid">
+          <div class="reflect-card">
+            <span class="reflect-card__label">What I learned</span>
+            <p>How to design a SQL view that pulls consistent, standardized output from several
+            differently-structured source tables at once — handling date parsing, business-rule
+            mapping via CASE logic, and multiple join conditions in one query.</p>
+          </div>
+          <div class="reflect-card">
+            <span class="reflect-card__label">Applying KSA</span>
+            <p>Applied SQL fundamentals I'd studied — joins, CASE statements, date functions — to a
+            real, messy dataset for the first time, where the "right" answer isn't in a textbook but
+            has to match how the business actually defines each product.</p>
+          </div>
+          <div class="reflect-card">
+            <span class="reflect-card__label">Growth</span>
+            <p>Built my confidence in reading and reasoning about production-scale queries, and taught
+            me to think about a query as documentation of business logic, not just as code.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="item" id="r-dashboard">
+        <div class="item__head"><h2>03 — Dashboard Data Pull</h2></div>
+        <div class="reflect-grid">
+          <div class="reflect-card">
+            <span class="reflect-card__label">What I learned</span>
+            <p>How to combine data from multiple source systems — some live, some decommissioned —
+            into a single clean base table using UNION ALL, and how to reconcile schema differences
+            between them.</p>
+          </div>
+          <div class="reflect-card">
+            <span class="reflect-card__label">Applying KSA</span>
+            <p>Practiced writing SQL for a real reporting use case rather than an isolated exercise,
+            and learned to plan a data model ahead of the visualization it will eventually support.</p>
+          </div>
+          <div class="reflect-card">
+            <span class="reflect-card__label">Growth</span>
+            <p>The visualization side is on hold because there isn't enough data yet — a good early
+            lesson that a dashboard is only as useful as the pipeline feeding it, and that "not ready
+            yet" is a legitimate project status, not a failure to report around.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="item" id="r-xmapping">
+        <div class="item__head"><h2>04 — Power BI → Data Lake Migration (XMapping)</h2></div>
+        <div class="reflect-grid">
+          <div class="reflect-card">
+            <span class="reflect-card__label">What I learned</span>
+            <p>How an existing dashboard's data source gets re-pointed from a legacy system to an
+            Enterprise data lake on Hadoop — including creating new backing tables, rewriting Power
+            Query steps, and cleaning source data so the numbers still tie out after the switch.</p>
+          </div>
+          <div class="reflect-card">
+            <span class="reflect-card__label">Applying KSA</span>
+            <p>Combined data engineering (SQL table creation, source data cleaning) with reporting
+            tooling (Power Query, and a first introduction to how the resulting visuals get built),
+            plus documentation skills — writing steps clear enough for another user to run the weekly
+            refresh without me.</p>
+          </div>
+          <div class="reflect-card">
+            <span class="reflect-card__label">Growth</span>
+            <p>This is where I started to see data governance and data visualization as connected: a
+            dashboard's trustworthiness depends on the governance decisions made upstream, long before
+            anyone opens the report.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="item" id="r-ad">
+        <div class="item__head"><h2>05 — AD Group Access Matrix</h2></div>
+        <div class="reflect-grid">
+          <div class="reflect-card">
+            <span class="reflect-card__label">What I learned</span>
+            <p>How access to systems and data is actually controlled behind the scenes — mapping
+            Active Directory groups to what they should and shouldn't be able to see or do.</p>
+          </div>
+          <div class="reflect-card">
+            <span class="reflect-card__label">Applying KSA</span>
+            <p>Direct exposure to data governance as a discipline, working alongside my supervisor
+            rather than independently — an area I hadn't studied formally before this internship.</p>
+          </div>
+          <div class="reflect-card">
+            <span class="reflect-card__label">Growth</span>
+            <p>Reframed how I think about "who can see the data" as its own engineering problem,
+            separate from but just as important as building the pipeline or the dashboard itself.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="item" id="r-overall">
+        <div class="item__head"><h2>Overall Growth</h2></div>
+        <p style="max-width:720px;">
+          Coming into this internship, my exposure to SQL, data governance, and data visualization was
+          mostly academic. Across these few weeks I've moved from learning how OCBC's Group Operations
+          &amp; Technology division is structured, to writing SQL against real production-shaped data,
+          to working on an active migration that touches data engineering, reporting, and governance at
+          once. The through-line for me has been realizing how much of "good data work" happens before
+          a chart is ever drawn — in the compliance training, the table design, and the access control
+          decisions that make the eventual dashboard trustworthy. That's shifted how I think about my
+          direction in IT: I'm more drawn to the data engineering and governance side of the stack than
+          I expected to be going in.
+        </p>
+      </article>
+
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer container">
+  <p>CIT2C27 Guided Work-Based Learning (IND1) — Digital Portfolio &nbsp;·&nbsp;
+  <a href="mailto:zacchaeuslee007@gmail.com">zacchaeuslee007@gmail.com</a></p>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

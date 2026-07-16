@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evidence of Work — Zacchaeus Lee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav">
+    <div class="nav__brand">ZACCHAEUS LEE <span class="muted">/ portfolio</span></div>
+    <button class="nav__toggle" aria-label="Toggle navigation">☰ MENU</button>
+    <ul class="nav__links">
+      <li><a href="index.html">Introduction</a></li>
+      <li><a href="evidence.html" aria-current="page">Evidence of Work</a></li>
+      <li><a href="reflection.html">Reflection</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <section class="page-head container">
+    <span class="hero__eyebrow">02 · Evidence of Work</span>
+    <h1>What I built</h1>
+    <p class="muted" style="max-width:640px;">
+      Tasks, artifacts, and accomplishments from my internship so far. Items marked
+      <span class="status status--restricted" style="margin:0 2px;">restricted</span>
+      involve confidential or proprietary banking systems and are described in writing only,
+      in line with data governance requirements.
+    </p>
+  </section>
+
+  <div class="container layout">
+    <nav class="toc">
+      <span class="toc__label">On this page</span>
+      <ul>
+        <li><a href="#onboarding">01 — Onboarding &amp; Compliance</a></li>
+        <li><a href="#composite-view">02 — Composite View (SQL)</a></li>
+        <li><a href="#dashboard-sql">03 — Dashboard Data Pull (SQL)</a></li>
+        <li><a href="#xmapping">04 — Power BI → Data Lake Migration</a></li>
+        <li><a href="#ad-matrix">05 — AD Group Access Matrix</a></li>
+      </ul>
+    </nav>
+
+    <div>
+
+      <!-- 01 — Onboarding -->
+      <article class="item" id="onboarding">
+        <div class="item__head">
+          <h2>01 — Onboarding &amp; Compliance Training</h2>
+          <span class="status status--live">status: live</span>
+        </div>
+        <p class="item__meta">Weeks 1–2 · Certificates of completion</p>
+        <p>
+          Before touching any production systems, I completed OCBC's compulsory onboarding curriculum —
+          covering data protection, cyber risk, anti-bribery, anti-slavery, tax evasion, and the bank's
+          purpose and values. These aren't box-ticking exercises: they set the boundaries for everything
+          I was allowed to touch afterwards, including the confidentiality limits visible elsewhere on
+          this page.
+        </p>
+        <div class="cert-grid">
+          <figure class="cert">
+            <img src="cert-purpose-values-ambition.png" alt="Certificate: Purpose, Values and Ambition">
+            <figcaption class="cert__cap">Purpose, Values &amp; Ambition</figcaption>
+          </figure>
+          <figure class="cert">
+            <img src="cert-pdpa.png" alt="Certificate: Personal Data Protection Act">
+            <figcaption class="cert__cap">Personal Data Protection Act</figcaption>
+          </figure>
+          <figure class="cert">
+            <img src="cert-ctr-pdpa.png" alt="Certificate: Compulsory Training Refresher — PDPA module">
+            <figcaption class="cert__cap">Compulsory Training Refresher (4/4) — PDPA</figcaption>
+          </figure>
+          <figure class="cert">
+            <img src="cert-cyber-risk.png" alt="Certificate: Information and Cyber Risk Awareness">
+            <figcaption class="cert__cap">Information &amp; Cyber Risk Awareness</figcaption>
+          </figure>
+          <figure class="cert">
+            <img src="cert-privacy-insider-trading.png" alt="Certificate: Privacy of Customer Information and Insider Trading">
+            <figcaption class="cert__cap">Privacy of Customer Info &amp; Insider Trading</figcaption>
+          </figure>
+          <figure class="cert">
+            <img src="cert-anti-bribery.png" alt="Certificate: Anti-Bribery, Slavery, Tax Evasion">
+            <figcaption class="cert__cap">Anti-Bribery / Slavery / Tax Evasion</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <!-- 02 — Composite View SQL -->
+      <article class="item" id="composite-view">
+        <div class="item__head">
+          <h2>02 — Composite View Across Multiple Products</h2>
+          <span class="status status--live">status: live (sanitized)</span>
+        </div>
+        <p class="item__meta">Weeks 3–8 · SQL (Hive/Spark SQL)</p>
+        <p>
+          Wrote a composite view that consolidates fields from four separate tables — including
+          product-level flags, join keys, and lookups — into a single output view spanning
+          80+ standardized columns, with date fields normalized and re-cast, and category codes
+          mapped from raw system codes to readable business labels. Table and column names below
+          have been genericized; the underlying logic and structure are unchanged.
+        </p>
+        <pre><code class="language-sql">with temp as
+(
+select distinct
+ TABLE_1.COLUMN_1 as OUTPUT_COLUMN_1
+,CAST(FROM_UNIXTIME(UNIX_TIMESTAMP(CASE WHEN TABLE_1.COLUMN_2 = 'CASE_VALUE_1' THEN NULL ELSE TABLE_1.COLUMN_2 END,'yyyyMMdd')) AS DATE) AS OUTPUT_COLUMN_2
+,TABLE_1.COLUMN_3 as OUTPUT_COLUMN_3
+,CASE
+WHEN TABLE_1.COLUMN_4 = 'CASE_VALUE_2' THEN 'CASE_RESULT_1'
+WHEN TABLE_1.COLUMN_4 = 'CASE_VALUE_3' THEN 'CASE_RESULT_2'
+ELSE 'CASE_DEFAULT_1' END as OUTPUT_COLUMN_7
+,TABLE_2.COLUMN_6 as OUTPUT_COLUMN_9
+,TABLE_3.COLUMN_8 as OUTPUT_COLUMN_11
+,TABLE_4.COLUMN_12 as OUTPUT_COLUMN_16
+-- ... additional standardized / mapped columns omitted for length ...
+,'BG' as OUTPUT_COLUMN_84
+from
+(
+  select COLUMN_1, COLUMN_2, COLUMN_3, COLUMN_4, COLUMN_5, COLUMN_7, COLUMN_9,
+         COLUMN_14, COLUMN_15, COLUMN_16, COLUMN_17
+  from TABLE_1
+  where FILTER_COLUMN_1 = '9999-12-31'
+) TABLE_1
+left join
+(
+  select distinct COLUMN_6, COLUMN_7, COLUMN_31, COLUMN_32, COLUMN_33
+  from TABLE_2
+  where FILTER_COLUMN_1 = '9999-12-31' and COLUMN_33 = '1'
+) TABLE_2
+  on TABLE_1.COLUMN_1 = TABLE_2.COLUMN_31
+ and TABLE_1.COLUMN_7 = TABLE_2.COLUMN_7
+left join
+(
+  select COLUMN_8, COLUMN_10, COLUMN_11, COLUMN_34, COLUMN_7, COLUMN_9, COLUMN_22, COLUMN_23
+  from TABLE_3
+  where FILTER_COLUMN_1 = '9999-12-31'
+) TABLE_3
+  on TABLE_1.COLUMN_7 = TABLE_3.COLUMN_7
+left join
+(
+  select COLUMN_13, COLUMN_12
+  from TABLE_4
+  where FILTER_COLUMN_1 = '9999-12-31'
+) TABLE_4
+  on TABLE_3.COLUMN_34 = TABLE_4.COLUMN_13
+)
+select * from temp;</code></pre>
+        <p class="code-caption">Abbreviated for display — full script uses the same pattern across 80+ output columns. Table/column names masked for confidentiality.</p>
+      </article>
+
+      <!-- 03 — Dashboard SQL -->
+      <article class="item" id="dashboard-sql">
+        <div class="item__head">
+          <h2>03 — Data Pull for Reporting Dashboard</h2>
+          <span class="status status--live">status: live (sanitized)</span>
+        </div>
+        <p class="item__meta">Weeks 3–8 · SQL · Visualization not yet started (pending data)</p>
+        <p>
+          Wrote a script to pull and standardize data from eight source tables (a mix of live and
+          decommissioned systems) via <code>UNION ALL</code>, tagging each row with its originating
+          source, then joined a reference table on a trimmed key to enrich the output with additional
+          date fields. This forms the base dataset for a dashboard I'm building — visualization work
+          is paused until the source data volume is sufficient.
+        </p>
+        <pre><code class="language-sql">WITH CTE_1 AS
+(
+-- SOURCE 1 - LIVE
+SELECT 'MASKED_VALUE_1' AS OUTPUT_COLUMN_1, CAST(COLUMN_1 AS STRING) AS OUTPUT_COLUMN_2,
+       COLUMN_2 AS OUTPUT_COLUMN_3, COLUMN_3 AS OUTPUT_COLUMN_4 /* ...+17 more columns */
+FROM TABLE_1
+WHERE FILTER_COLUMN_1 = 'FILTER_VALUE_1'
+
+UNION ALL
+
+-- SOURCE 2 - DEAD
+SELECT 'MASKED_VALUE_2' AS OUTPUT_COLUMN_1, CAST(COLUMN_1 AS STRING) AS OUTPUT_COLUMN_2,
+       COLUMN_2 AS OUTPUT_COLUMN_3, COLUMN_3 AS OUTPUT_COLUMN_4 /* ... */
+FROM TABLE_2
+WHERE FILTER_COLUMN_1 = 'FILTER_VALUE_1'
+
+-- ... 6 more UNION ALL blocks across sources 3–8, alternating LIVE / DEAD systems ...
+),
+
+CTE_2 AS
+(
+SELECT CAST(COLUMN_1 AS STRING) AS OUTPUT_COLUMN_2, COLUMN_21 AS OUTPUT_COLUMN_22,
+       COLUMN_22 AS OUTPUT_COLUMN_23, COLUMN_23 AS OUTPUT_COLUMN_24
+FROM TABLE_9
+WHERE FILTER_COLUMN_1 = 'FILTER_VALUE_1'
+)
+
+SELECT CTE_1.*, CAST(CTE_2.OUTPUT_COLUMN_22 AS DATE) AS OUTPUT_COLUMN_22,
+       CTE_2.OUTPUT_COLUMN_25, CTE_2.OUTPUT_COLUMN_26
+FROM CTE_1
+LEFT JOIN CTE_2
+  ON TRIM(CTE_1.OUTPUT_COLUMN_2) = TRIM(CTE_2.OUTPUT_COLUMN_2);</code></pre>
+        <p class="code-caption">Abbreviated for display — 8 source blocks follow the same UNION ALL pattern. Table/column names masked for confidentiality.</p>
+      </article>
+
+      <!-- 04 — XMapping -->
+      <article class="item" id="xmapping">
+        <div class="item__head">
+          <h2>04 — Power BI → Enterprise Data Lake Migration (XMapping)</h2>
+          <span class="status status--live">status: live (sanitized)</span>
+        </div>
+        <p class="item__meta">Ongoing track · Power Query (M)</p>
+        <p>
+          I'm on a track re-pointing an existing Power BI dashboard's data source from its legacy source
+          to the bank's Enterprise big data platform and data lake (Hadoop). My part of this covers:
+        </p>
+        <ul>
+          <li>Helping create the new tables in the data lake that the dashboard now reads from</li>
+          <li>Rewriting the dashboard's Power Query steps to point at the new source</li>
+          <li>Cleaning and standardizing source data (type casting, trimming, de-duplication, error handling)</li>
+          <li>Writing documentation so other users can run the dashboard's weekly data refresh themselves</li>
+        </ul>
+        <div class="confidential-note">
+          <strong>Note:</strong> the SQL scripts used to create the new tables in the data lake are
+          sensitive and cannot be shown. The two Power Query transformations below — the parts of this
+          work I'm able to share — are sanitized.
+        </div>
+        <h3 style="margin-top:28px;">Power Query — Type Casting &amp; Data Cleaning</h3>
+        <pre><code class="language-javascript">let
+ STEP_1 = Odbc.Query(
+ PARAMETER_1,
+ if Text.From(PARAMETER_2) = "MASKED_VALUE_1" then
+   "select * from MASKED_DATABASE.""MASKED_SCHEMA"".MASKED_TABLE limit 0"
+ else
+   "select * from MASKED_DATABASE.""MASKED_SCHEMA"".MASKED_TABLE where FILTER_COLUMN_1 = 'FILTER_VALUE_1'"
+ ),
+
+ STEP_2 = Table.TransformColumns(STEP_1, {
+   { "COLUMN_1", each
+       let
+         VARIABLE_1 = _,
+         VARIABLE_2 = if VARIABLE_1 = null then null else Text.Trim(Text.From(VARIABLE_1)),
+         VARIABLE_3 =
+           if VARIABLE_1 = null or VARIABLE_2 = "" then null
+           else try Date.From(DateTime.FromText(VARIABLE_2, "en-GB"))
+             otherwise try Date.From(DateTime.FromText(VARIABLE_2, "en-SG"))
+             otherwise try Date.From(DateTime.FromText(VARIABLE_2, "en-US"))
+             otherwise null
+       in VARIABLE_3,
+     type date }
+ }),
+
+ STEP_3 = Table.TransformColumnTypes(STEP_2, {
+   {"COLUMN_2", Int64.Type}, {"COLUMN_4", type text}, {"COLUMN_1", type date}
+   /* ...remaining column type declarations... */
+ }),
+
+ STEP_4 = Table.RemoveColumns(STEP_3, {"COLUMN_19"}),
+
+ STEP_5 = Table.ReplaceErrorValues(STEP_4, {
+   {"COLUMN_2", null}, {"COLUMN_4", "MASKED_VALUE_2"}, {"COLUMN_1", null}
+   /* ...remaining fallback values... */
+ }),
+
+ STEP_8 = Table.SelectRows(STEP_7, each
+   not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))
+ ),
+
+ STEP_10 = Table.AddColumn(STEP_9, "COLUMN_24", each
+   if [COLUMN_13] = null then "MASKED_RESULT_1"
+   else if Text.StartsWith([COLUMN_13], "MASKED_PREFIX_1") then "MASKED_RESULT_2"
+   else if Text.StartsWith([COLUMN_13], "MASKED_PREFIX_4") then "MASKED_RESULT_3"
+   else [COLUMN_13],
+   type text)
+in
+ STEP_10</code></pre>
+        <p class="code-caption">Abbreviated — full step chain runs 10 sequential transforms. Values, table and column names masked for confidentiality.</p>
+
+        <h3 style="margin-top:28px;">Power Query — Business Rule Tagging for Weekly Refresh</h3>
+        <pre><code class="language-javascript">let
+ STEP_1 = Odbc.Query(PARAMETER_1, "select * from MASKED_DATABASE.""MASKED_SCHEMA"".MASKED_TABLE ..."),
+ STEP_2 = Table.PromoteHeaders(STEP_1, [PromoteAllScalars=true]),
+ STEP_3 = Table.TransformColumnTypes(STEP_2, { {"COLUMN_1", Int64.Type}, {"COLUMN_6", type date} /* ... */ }),
+ STEP_4 = Table.AddIndexColumn(STEP_3, "COLUMN_25", 0, 1, Int64.Type),
+
+ -- Derive normalized lookup flags from raw fields
+ STEP_9 = Table.AddColumn(STEP_8, "COLUMN_30", each
+   if [COLUMN_4] = null then "" else Text.Upper(Text.Trim(Text.From([COLUMN_4]))), type text),
+
+ -- Categorize each row against defined business-rule reference lists
+ STEP_13 = Table.AddColumn(STEP_12, "COLUMN_34", each
+   if Text.Contains([COLUMN_26], "MASKED_VALUE_4") and Text.Contains([COLUMN_26], "MASKED_VALUE_2")
+     then "MASKED_RESULT_3"
+   else if Text.Contains([COLUMN_26], "MASKED_VALUE_5") and Text.Contains([COLUMN_26], "MASKED_VALUE_3")
+     then "MASKED_RESULT_6"
+   else "MASKED_RESULT_7",
+   type text),
+
+ STEP_14 = Table.SelectRows(STEP_13, each
+   List.Contains({"MASKED_RESULT_3","MASKED_RESULT_4","MASKED_RESULT_5","MASKED_RESULT_6"}, [COLUMN_34])
+ ),
+
+ -- Apply status + reason-code logic per business rule, used to flag records for the weekly refresh
+ STEP_18 = Table.AddColumn(STEP_17, "COLUMN_38", each
+   if [COLUMN_34] = "MASKED_RESULT_3" and [COLUMN_32] = true and [COLUMN_28] = "MASKED_VALUE_6"
+     then "MASKED_STATUS_1"
+   else "MASKED_STATUS_2",
+   type text),
+
+ STEP_20 = Table.RemoveColumns(STEP_19, {"COLUMN_37","COLUMN_32","COLUMN_26" /* ...+more */}, MissingField.Ignore)
+in
+ STEP_20</code></pre>
+        <p class="code-caption">Abbreviated — reference lists and rule branches condensed for display. All literal values masked.</p>
+      </article>
+
+      <!-- 05 — AD Group Matrix -->
+      <article class="item" id="ad-matrix">
+        <div class="item__head">
+          <h2>05 — Active Directory Group Access Matrix</h2>
+          <span class="status status--restricted">status: restricted</span>
+        </div>
+        <p class="item__meta">Data Governance</p>
+        <p>
+          Worked with my supervisor to build an AD group access matrix — mapping which Active Directory
+          groups should have access to which systems and data, as part of a broader data governance
+          initiative. This directly involves internal access-control structures, so no screenshots or
+          exports are shown here.
+        </p>
+        <div class="confidential-note">
+          <strong>Note:</strong> this item is described in writing only. The matrix contains internal
+          access-control mappings that fall outside what can be shared publicly, in line with data
+          governance requirements.
+        </div>
+      </article>
+
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer container">
+  <p>CIT2C27 Guided Work-Based Learning (IND1) — Digital Portfolio &nbsp;·&nbsp;
+  <a href="mailto:zacchaeuslee007@gmail.com">zacchaeuslee007@gmail.com</a></p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script src="main.js"></script>
+</body>
+</html>

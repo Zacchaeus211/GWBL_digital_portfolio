@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zacchaeus Lee — Digital Portfolio</title>
+<meta name="description" content="Digital portfolio for CIT2C27 Guided Work-Based Learning — Operations Change Management Intern, Group Operations &amp; Technology, OCBC.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav">
+    <div class="nav__brand">ZACCHAEUS LEE <span class="muted">/ portfolio</span></div>
+    <button class="nav__toggle" aria-label="Toggle navigation">☰ MENU</button>
+    <ul class="nav__links">
+      <li><a href="index.html" aria-current="page">Introduction</a></li>
+      <li><a href="evidence.html">Evidence of Work</a></li>
+      <li><a href="reflection.html">Reflection</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <section class="hero container">
+    <span class="hero__eyebrow">CIT2C27 · Guided Work-Based Learning</span>
+    <h1>Zacchaeus Lee</h1>
+    <p class="muted" style="font-size:1.1rem; max-width:640px;">
+      Operations Change Management Intern, Group Operations &amp; Technology — OCBC Bank
+    </p>
+
+    <div class="hero__grid">
+      <div class="hero__photo">
+        <img src="profile.jpg" alt="Zacchaeus Lee">
+      </div>
+      <div>
+        <p>
+          I'm currently interning with OCBC's Group Operations &amp; Technology division, attached to the
+          Operations Change Management team. Over the course of this internship I've been getting hands-on
+          with how a bank's back-end actually runs — from compliance fundamentals, to writing SQL against
+          production data, to helping migrate an existing Power BI dashboard onto the bank's Enterprise data
+          lake. This site documents that work: what I built, what I learned, and how it's shaped my direction
+          as an IT professional.
+        </p>
+        <div class="hero__contact">
+          <span>✉ <a href="mailto:zacchaeuslee007@gmail.com">zacchaeuslee007@gmail.com</a></span>
+          <span>in <a href="https://www.linkedin.com/in/zacchaeus-lee-b69269296" target="_blank" rel="noopener">linkedin.com/in/zacchaeus-lee-b69269296</a></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Signature element: a pipeline diagram styled on Zacchaeus's own SQL vocabulary
+         (his scripts label sources LIVE / DEAD) — reused here as a map of how his
+         internship work actually flows, and linking straight to the evidence page. -->
+    <div class="pipeline">
+      <div class="pipeline__row">
+        <div class="pipeline__node">
+          <span class="pipeline__label">Stage 01 · Onboarding</span>
+          <span class="pipeline__title">Compliance &amp; Governance Training</span>
+        </div>
+        <div class="pipeline__node">
+          <span class="pipeline__label">Stage 02 · Data</span>
+          <span class="pipeline__title">SQL — Composite Views &amp; Dashboard Feeds</span>
+        </div>
+        <div class="pipeline__node">
+          <span class="pipeline__label">Stage 03 · Migration</span>
+          <span class="pipeline__title">Power BI → Enterprise Data Lake (Hadoop)</span>
+        </div>
+        <div class="pipeline__node">
+          <span class="pipeline__label">Stage 04 · Governance</span>
+          <span class="pipeline__title">AD Group Access Matrix</span>
+        </div>
+      </div>
+    </div>
+    <p class="mt-lg"><a class="btn" href="evidence.html">View Evidence of Work →</a></p>
+  </section>
+
+  <section class="block container">
+    <h2>About the Department</h2>
+    <p class="muted" style="max-width:680px;">
+      Group Operations &amp; Technology (O&amp;T) is the engine room of the OCBC ecosystem, split across
+      two mandates: running the bank today, and building what runs it tomorrow.
+    </p>
+    <div class="two-col mt-lg">
+      <div class="card">
+        <span class="chip">Run the Bank</span>
+        <h3 style="margin-top:14px;">Group Operations</h3>
+        <p>
+          The regional processing hubs. They handle the day-to-day volume — transactions, corporate
+          lending pipelines, and back-end processing across markets — while constantly refining workflows
+          to cut cost and friction.
+        </p>
+      </div>
+      <div class="card">
+        <span class="chip">Change the Bank</span>
+        <h3 style="margin-top:14px;">Group Technology</h3>
+        <p>
+          The digital architects. They build and scale the bank's digital backbone: mobile banking, AI and
+          data analytics platforms, and the cybersecurity infrastructure that protects it all, 24/7.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block container">
+    <h2>My Team: Operations Change Management</h2>
+    <p class="muted" style="max-width:680px;">
+      When Technology ships a new tool or automates a process, a bank can't just flip a switch. My team
+      is the bridge that makes the rollout safe.
+    </p>
+    <div class="two-col mt-lg">
+      <div class="card">
+        <h3>Smooth Transitions</h3>
+        <p>
+          Mapping exactly how new technology — like automated AI document processors — reshapes human
+          workflows, so the switch happens with zero disruption to daily operations or clients.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Risk &amp; Process Alignment</h3>
+        <p>
+          Updating regional SOPs and making sure new processes stay strictly compliant with financial
+          regulation and risk frameworks.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Workforce Enablement</h3>
+        <p>
+          Coordinating across business units to train and prepare staff so they're confident using the
+          bank's next-generation platforms.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block container">
+    <h2>My Role &amp; Project</h2>
+    <p style="max-width:680px;">
+      As an intern on the Operations Change Management team, I've been placed on a data migration
+      track: moving an existing Power BI dashboard's data source over to the bank's Enterprise big-data
+      platform and data lake (Hadoop). Alongside that, I've supported table creation, source data cleaning,
+      dashboard documentation, and a data governance initiative around Active Directory access control.
+      The <a href="evidence.html">Evidence of Work</a> page walks through each piece in detail.
+    </p>
+  </section>
+
+</main>
+
+<footer class="site-footer container">
+  <p>CIT2C27 Guided Work-Based Learning (IND1) — Digital Portfolio &nbsp;·&nbsp;
+  <a href="mailto:zacchaeuslee007@gmail.com">zacchaeuslee007@gmail.com</a></p>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
